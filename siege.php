@@ -40,7 +40,7 @@ function write_siege_file($vars = array())
         'chunked'           => 'true',
         'connection'        => 'close',
         'concurrent'        => '10',
-        'time'              => '60s',
+        'time'              => '10s',
         // reps             => '',
         // file             => '',
         // url              => '',
@@ -78,7 +78,7 @@ function write_siege_file($vars = array())
     }
     
     // write the siegerc file
-    file_put_contents("/root/.siegerc", $text);
+    file_put_contents("/home/padraic/.siegerc", $text);
 }
 
 // store logs broken down by time
