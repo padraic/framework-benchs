@@ -16,7 +16,7 @@ spl_autoload_register('autoload');
 
 $front = Zend_Controller_Front::getInstance();
 $front->setParam('noViewRenderer', true);
-$router = apc_fetch('zfwtfopt-router');
+$router = apc_fetch('zfmoreopt-router');
 if (!$router) {
     $router = $front->getRouter();
     $router->addRoute('route_1',
@@ -73,8 +73,8 @@ if (!$router) {
     $router->addRoute('user',
         new Zend_Controller_Router_Route('hello/:name')
     );
-    apc_store('zfwtfopt-router', serialize($router));
-else {
+    apc_store('zfmoreopt-router', serialize($router));
+} else {
     $front->setRouter(unserialize($router));
 }
 $front->setControllerDirectory(APPLICATION_PATH . '/controllers')

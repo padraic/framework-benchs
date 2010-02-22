@@ -74,7 +74,7 @@ if (!$router) {
         new Zend_Controller_Router_Route('hello/:name')
     );
     apc_store('zfwtfopt-router', serialize($router));
-else {
+} else {
     $front->setRouter(unserialize($router));
 }
 $front->setControllerDirectory(APPLICATION_PATH . '/controllers')
