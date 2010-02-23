@@ -14,11 +14,23 @@ function autoload($class) {
 }
 spl_autoload_register('autoload');
 
+// Preload
+include APPLICATION_PATH . '/../data/preload/preload.php';
+
 $front = Zend_Controller_Front::getInstance();
 $front->setParam('noViewRenderer', true);
 $router = apc_fetch('zfmoreopt-router');
 if (!$router) {
     $router = $front->getRouter();
+    $router->addRoute('user',
+        new Zend_Controller_Router_Route('hello/:name')
+    );
+    $router->addRoute('products',
+        new Zend_Controller_Router_Route_Static('products', array('action'=>'products'))
+    );
+    $router->addRoute('product/:slug',
+        new Zend_Controller_Router_Route('product', array('action'=>'product'))
+    );
     $router->addRoute('route_1',
         new Zend_Controller_Router_Route('route1/:slug', array('action'=>'route'))
     );
@@ -63,15 +75,6 @@ if (!$router) {
     );
     $router->addRoute('route_15',
         new Zend_Controller_Router_Route('route15/:slug', array('action'=>'route'))
-    );
-    $router->addRoute('product/:slug',
-        new Zend_Controller_Router_Route('product', array('action'=>'product'))
-    );
-    $router->addRoute('products',
-        new Zend_Controller_Router_Route_Static('products', array('action'=>'products'))
-    );
-    $router->addRoute('user',
-        new Zend_Controller_Router_Route('hello/:name')
     );
     apc_store('zfmoreopt-router', serialize($router));
 } else {
