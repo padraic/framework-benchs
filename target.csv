@@ -1,3 +1,4 @@
+baseline-html,index.html
 baseline-php,index.php?name=Paddy
 symfony-2.0.0alpha1,web/index.php/hello/Paddy
 solar-1.0.0beta3,index.php/hello/Paddy
