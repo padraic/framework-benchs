@@ -40,7 +40,7 @@ function write_siege_file($vars = array())
         'chunked'           => 'true',
         'connection'        => 'close',
         'concurrent'        => '10',
-        'time'              => '10s',
+        'time'              => '60s',
         // reps             => '',
         // file             => '',
         // url              => '',
@@ -78,12 +78,12 @@ function write_siege_file($vars = array())
     }
     
     // write the siegerc file
-    file_put_contents("/home/padraic/.siegerc", $text);
+    file_put_contents("/root/.siegerc", $text);
 }
 
 // store logs broken down by time
 $time = date("Y-m-d\TH:i:s");
-passthru("mkdir -p ./log/$time");
+passthru("mkdir -p /var/www/log/$time");
 
 // run each benchmark target
 $list = fetch_target_list($_SERVER['argv'][1]);
@@ -94,7 +94,7 @@ foreach ($list as $key => $val) {
     
     // write the siegerc file
     write_siege_file(array(
-        'logfile' => "./log/$time/$name.log",
+        'logfile' => "/var/www/log/$time/$name.log",
     ));
     
     // restart the server for a fresh environment
@@ -117,6 +117,6 @@ foreach ($list as $key => $val) {
 }
 
 // do reporting
-echo "Logs saved at ./log/$time.\n\n";
-passthru("php ./report.php ./log/$time");
+echo "Logs saved at /var/www/log/$time.\n\n";
+passthru("php /var/www/report.php /var/www/log/$time");
 exit(0);
